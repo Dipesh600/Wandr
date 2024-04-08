@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+      
+
+    .flight-form { margin-top: 50px; } 
+    .form-group { margin-bottom: 20px; }
+    .form-label { font-weight: bold; }
+    .btn-primary { background-color: #87CEEB; border: none; } 
+    .btn-primary:hover { background-color: #6CA0DC; }
+    </style>
+</head>
+<body>
+    
+  <!--Flight comparisition section-->
+  
+  
+  <section id="flight-form" class="flight-form"> 
+    <div class="container"> 
+      <div class="row"> 
+        <div class="col-md-6 offset-md-3"> 
+          <form> 
+            <div class="form-group">
+            <label for="from" class="form-label">From</label> 
+            <input type="text" class="form-control" id="from" value="Delhi, Mumbai" > 
+              </div>
+              <div class="form-group">
+                <label for="to" class="form-label">To</label> 
+                <input type="text" class="form-control" id="to" value="Mumbai" readonly>
+                  </div> 
+                <div class="form-group"> 
+                  <label for="departure-date" class="form-label">Departure Date</label> 
+                  <input type="date" class="form-control" id="departure-date">
+                    </div> 
+                  <div class="form-group"> 
+                    <label for="return-date" class="form-label">Return Date</label> 
+                    <input type="date" class="form-control" id="return-date">
+                      </div> 
+                    <div class="form-group">
+                      <label for="travellers" class="form-label">Travellers</label>
+                      <input type="number" class="form-control" id="travellers" min="1" value="1">
+                        </div>
+                      <button type="submit" class="btn btn-primary btn-block">Search Flights</button>
+                      </form>
+                  </div>
+                </div>
+              </div>
+              </section> 
+</body>
+</html>

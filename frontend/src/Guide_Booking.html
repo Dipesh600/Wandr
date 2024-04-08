@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wandr</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+  <style>
+    .navbar-custom {
+      background-color: #87CEEB; /* Light Blue */
+    }
+    .nav-link {
+      color: #333; /* Dark Gray */
+    }
+    .nav-link:hover {
+      color: #000; /* Black */
+    }
+    .navbar-brand {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-right: 20px; /* Added margin from the logo side */
+    }
+    .navbar-brand img {
+      margin-bottom: 5px;
+    }
+    #bookings{
+        margin-left:30px;
+    }
+    .nav-item {
+      margin-right: 15px;
+    }
+    .nav-link {
+      font-weight: bold;
+    }
+    .navbar-toggler {
+      border: 1px solid #333;
+    }
+    .search-icon {
+      margin-right: 10px;
+    }
+    .signup-btn {
+      border: 1px solid #333; /* Added border to the Signup/Login button */
+      padding: 5px 15px; /* Added padding to the button */
+      border-radius: 5px; /* Added border radius to the button */
+    } 
+    
+.signup-btn{
+  color: white;
+  border: 2px solid black;
+  background-color:#87CEEB ;
+}
+
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+  <a class="navbar-brand" href="#">
+    <img src="Wandrlogo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+    <span style="font-size: 12px;">Destiny leads you...</span>
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav mr-auto" id="bookings">
+      <li class="nav-item">
+        <a class="nav-link" href="corporate_booking.html">Corporate Booking</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="hotel_Booking.html">Hotel Booking</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="Flight_Booking.html">Flight Booking</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="Guide_Booking.html">Guide Booking</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="Wandr.html">Wander</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          <i class="fa fa-search search-icon"></i> <!-- Added search icon -->
+        </a>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link signup-btn">Log-in/Sign-up</button>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+
+  
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

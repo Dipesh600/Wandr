@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Full Blog</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 offset-lg-2 mt-5">
+      <div id="blogPost" class="card">
+        <div class="card-body">
+          <h2 id="blogTitle" class="card-title"></h2>
+          <p id="blogContent" class="card-text"></p>
+          <p><strong id="blogAuthor">Author:</strong> <span id="authorName"></span></p>
+          <p><strong id="blogDate">Publication Date:</strong> <span id="publicationDate"></span></p>
+          <img id="blogImage" class="img-fluid" alt="Blog Image">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+    // Function to extract the post ID from the URL
+    function getPostIdFromURL() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('id');
+    }
+
+    // Fetch blog post details based on the ID from the backend
+    const postId = getPostIdFromURL();
+    fetch(`http://localhost:3000/api/blogposts/${postId}`)
+        .then(response => response.json())
+        .then(data => {
+            const blogPostContainer = document.getElementById('blogPost');
+            data.forEach(post => {
+                const blogPost = document.createElement('div');
+                blogPost.classList.add('col-lg-8', 'mx-auto', 'mt-4');
+                blogPost.innerHTML = `
+                    <div class="blog-post">
+                        <h2>${post.title}</h2>
+                        <p>${post.content}</p>
+                        <p><strong>Author:</strong> ${post.author}</p>
+                        <p><strong>Publication Date:</strong> ${new Date(post.publicationDate).toDateString()}</p>
+                        <img src="${post.imageUrl}" alt="Blog Image">
+                    </div>
+                `;
+                blogPostContainer.appendChild(blogPost);
+            });
+        })
+        .catch(error => console.error('Error fetching blog post:', error));
+</script>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

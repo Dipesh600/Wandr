@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wandr</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+  <style>
+    .navbar-custom {
+      background-color: #2E4053; /* Light Blue */
+    }
+    .nav-link {
+      color: #333; /* Dark Gray */
+    }
+    .nav-link:hover {
+      color: #000; /* Black */
+    }
+    .navbar-brand {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-right: 20px; /* Added margin from the logo side */
+    }
+    .navbar-brand img {
+      margin-bottom: 5px;
+    }
+    #bookings{
+        margin-left:30px;
+    }
+    .nav-item {
+      margin-right: 15px;
+    }
+    .nav-link {
+      font-weight: bold;
+    }
+    .navbar-toggler {
+      border: 1px solid #333;
+    }
+    .search-icon {
+      margin-right: 10px;
+    }
+
+    /* Login form styling */
+    .hero {
+      background-color: #87CEEB; /* Light Blue */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .flex {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .form {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-top: 20px;
+    }
+
+    .button {
+      display: flex;
+      margin-bottom: 20px;
+    }
+
+    .toggle {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      outline: none;
+      font-size: 18px;
+      padding: 10px 20px;
+      color: #333;
+      transition: all 0.3s ease;
+    }
+
+    .toggle:hover {
+      background-color: #87CEEB;
+      color: #fff;
+    }
+
+    .input-field {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      outline: none;
+    }
+
+    .check-box {
+      margin-right: 5px;
+    }
+
+    .smt-btn {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #87CEEB;
+      color: #fff;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .smt-btn:hover {
+      background-color: #2E4053; /* Dark Blue */
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+  <a class="navbar-brand" href="#">
+    <img src="Wandrlogo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+    <span style="font-size: 12px;">Destiny leads you...</span>
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav mr-auto" id="bookings">
+      <li class="nav-item">
+        <a class="nav-link" href="corporate_booking.html">Corporate Booking</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="hotel_Booking.html">Hotel Booking</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="Flight_Booking.html">Flight Booking</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="Guide_Booking.html">Guide Booking</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="Wandr.html">Wander</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          <i class="fa fa-search search-icon"></i> <!-- Added search icon -->
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="signup-btn" href="login.html">Log-in/Sign-up</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+
+<div class="hero">
+  <div class="flex">
+    <section>
+      <h1>Welcome to Wandr</h1>
+      <p>Experience seamless travel booking experiences with Wandr. Motivate your wanderlust and explore the world with ease.</p>
+    </section>
+
+    <div class="form">
+      <div class="button">
+        <div id="btn"></div>
+        <button type='button' class="toggle" onclick="login()">Log In</button>
+        <button type='button' class="toggle" onclick="register()">Register</button>
+      </div>
+      <div class="social-icons">
+        <a href="http://www.facebook.com"><img src="fb.png" alt="Facebook"></a>
+        <a href="http://www.instagram.com"><img src="gp.png" alt="Instagram"></a>
+        <a href="http://www.twitter.com"><img src="tw.png" alt="Twitter"></a>
+      </div>
+      <form id="log-in" class="inp-grp">
+        <input type="text" class="input-field" placeholder="User Id" required>
+        <input type="text" class="input-field" placeholder="Enter Password" required>
+        <input type="checkbox" class="check-box"><span>Remember Password</span>
+        <button type="submit" class="smt-btn">Log In</button>
+      </form>
+
+      <form id="register" class="inp-grp" style="display:none;">
+        <input type="text" class="input-field" placeholder="User Id" required>
+        <input type="email" class="input-field" placeholder="Email Id" required>
+        <input type="text" class="input-field" placeholder="Enter Password" required>
+        <input type="checkbox" class="check-box"><span>I agree to the terms and conditions.</span>
+        <button type="submit" class="smt-btn">Register</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Footer -->
+<div class="container-fluid" style="margin-left: 0;padding-right: 0; padding-left: 0; margin-bottom:0;">
+  <footer class="text-white text-center text-lg-start" style="background-color: #23242a; padding: 5px;">
+    <div class="container">
+      <div class="row mt-4">
+        <!-- Column 1 -->
+        <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+          <h5 class="text-uppercase mb-4">About Us</h5>
+          <p style="text-align: justify;">
+            We are a travel management company dedicated to providing seamless booking experiences for hotels, flights, buses,Dedicated Guides and more.
+          </p>
+          <!-- Social media icons -->
+          <div class="mt-4" style="padding: 10px; margin-left: -40px;">
+            <a type="button" class="btn btn-floating btn-warning btn-lg"><i class="fab fa-facebook-f"></i></a>
+            <a type="button" class="btn btn-floating btn-warning btn-lg"><i class="fab fa-twitter"></i></a>
+            <a type="button" class="btn btn-floating btn-warning btn-lg"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+        <!-- Column 2 -->
+        <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+          <h5 class="text-uppercase mb-4 pb-1">Contact Us</h5>
+          <!-- Contact info -->
+          <ul class="fa-ul" style="margin-left: 1.65em;">
+            <li class="mb-3">
+              <span class="fa-li"><i class="fas fa-map-marker-alt"></i></span><span class="ms-2">123 Travel St, City, Country</span>
+            </li>
+            <li class="mb-3">
+              <span class="fa-li"><i class="fas fa-envelope"></i></span><span class="ms-2">info@wandrnow.com</span>
+            </li>
+            <li class="mb-3">
+              <span class="fa-li"><i class="fas fa-phone"></i></span><span class="ms-2">+1 (123) 456-7890</span>
+            </li>
+          </ul>
+        </div>
+        <!-- Column 3 -->
+        <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+          <h5 class="text-uppercase mb-4">Our Services</h5>
+          <!-- Quick links -->
+          <ul class="list-unstyled mb-0">
+            <li>
+              <a href="hotel_Booking.html" style="text-decoration: none; color: white;">Hotel Booking</a>
+            </li>
+            <li>
+              <a href="Flight_Booking.html" style="text-decoration: none;color: white;">Flight Booking</a>
+            </li>
+            <li>
+              <a href="Bus_Booking.html" style="text-decoration: none;color: white;">Bus Booking</a>
+            </li>
+            <li>
+              <a href="Guide_Booking.html" style="text-decoration: none; color: white;">Guides Booking</a>
+            </li>
+            <!-- Add more links as needed -->
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+      © 2024 Wandr_Now. All rights reserved.
+    </div>
+  </footer>
+</div>
+
+<script>
+  var x=document.getElementById('log-in');
+  var y=document.getElementById("register")
+  var z=document.getElementById("btn")
+
+  function register(){
+    x.style.left='-400px';
+    y.style.left='50px';
+    z.style.left='110px';
+    y.style.display = "block";
+    x.style.display = "none";
+  }
+  function login(){
+    x.style.left='50px';
+    y.style.left='450px';
+    z.style.left='0';
+    y.style.display = "none";
+    x.style.display = "block";
+  }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

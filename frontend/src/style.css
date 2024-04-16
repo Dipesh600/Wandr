@@ -102,6 +102,13 @@ margin-right: 10px; /* Add spacing between icon and text */
   height: 50px;
 
 }
+#links{
+  display: none;
+
+}
+.icon-padding {
+  padding-left: 10px;
+}
 }
 
 

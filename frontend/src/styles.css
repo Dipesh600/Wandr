@@ -1,0 +1,96 @@
+/* Modify the body background color */
+body {
+    background-color: #F5F5F5;
+  }
+  
+/* Modify the text color for the navigation bar links */
+.nav-link {
+    color: white;
+  }
+  
+  /* Modify the text color for the exclusive offers section */
+  .exclusive-offers h2 {
+    color: white;
+  }
+  
+  /* Modify the text color for the customer testimonials section */
+  .customer-testimonials h2 {
+    color: #2E4053;
+  }
+
+
+
+  /* Modify the navigation bar background color */
+  
+  .navbar-custom {
+    background-color: #2E4053;
+  }
+  /*
+  .navbar-custom .nav-link {
+
+    color: white;
+  
+  }
+  */
+  
+  /* Modify the signup-btn background color */
+           
+  .signup-btn{
+    background-image: linear-gradient(to right, #FF512F 0%, #F09819  51%, #FF512F  100%);
+    margin: 5px;
+    padding: 10px 15px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;            
+    border-radius: 10px;
+    display: block;
+  }
+
+  .signup-btn:hover {
+    background-position: right center; /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+  }
+ /*
+  .signup-btn {
+    background: linear-gradient(to right, blue, red, orange);
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff;
+    border-radius: 8px;
+    color: yellow;
+    border: 2px solid white;
+}
+
+.signup-btn:hover {
+    background: linear-gradient(to top, blue, red, orange);
+    text-shadow: 0 0 10px #fff, 0 0 20px #ff0, 0 0 30px #ff0;
+    border: 2px solid #ffa;
+}
+*/
+  
+  /* Modify the services-container background color */
+  .services-container {
+    background-color: #F5F5F5;
+  }
+  
+  /* Modify the exclusive-offers background color */
+  .exclusive-offers {
+    background-color: #2E4053;
+  }
+  
+  /* Modify the customer-testimonials background color */
+  .customer-testimonials {
+    background-color: #F5F5F5;
+  }
+  
+  /* Modify the feedback-button background color */
+  .feedback-button {
+    background-color: #FFC107;
+  }
+  
+  /* Add a hover effect to the signup-btn and feedback-button */
+  .signup-btn:hover,
+  .feedback-button:hover {
+    background-color: #FFD500;
+  }

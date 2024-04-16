@@ -9,7 +9,7 @@
 
   <style>
     .navbar-custom {
-      background-color: #87CEEB; /* Light Blue */
+      background-color: #2E4053; /* Light Blue */
     }
     .nav-link {
       color: #333; /* Dark Gray */
@@ -41,18 +41,25 @@
     .search-icon {
       margin-right: 10px;
     }
-    .signup-btn {
-      border: 1px solid #333; /* Added border to the Signup/Login button */
-      padding: 5px 15px; /* Added padding to the button */
-      border-radius: 5px; /* Added border radius to the button */
-    } 
     
 .signup-btn{
-  color: white;
-  border: 2px solid black;
-  background-color:#87CEEB ;
+  background-image: linear-gradient(to right, #FF512F 0%, #F09819  51%, #FF512F  100%);
+  margin: 5px;
+  padding: 10px 15px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;            
+  border-radius: 10px;
+  display: block;
 }
 
+.signup-btn:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+}
   </style>
 </head>
 <body>
@@ -91,7 +98,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <button class="nav-link signup-btn">Log-in/Sign-up</button>
+        <a class="signup-btn" href="login.html">Log-in/Sign-up</a>
       </li>
     </ul>
   </div>
@@ -99,6 +106,73 @@
 
 
   
+<div class="GuideContainer" style="width: 100%; height: 100vh;"></div>
+
+
+
+<!-- Footer -->
+<div class="container-fluid" style="margin-left: 0;padding-right: 0; padding-left: 0; margin-bottom:0;">
+  <footer class="text-white text-center text-lg-start" style="background-color: #23242a; padding: 5px;">
+    <div class="container">
+      <div class="row mt-4">
+        <!-- Column 1 -->
+        <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+          <h5 class="text-uppercase mb-4">About Us</h5>
+          <p style="text-align: justify;">
+            We are a travel management company dedicated to providing seamless booking experiences for hotels, flights, buses,Dedicated Guides and more.
+          </p>
+          <!-- Social media icons -->
+          <div class="mt-4" style="padding: 10px; margin-left: -40px;">
+            <a type="button" class="btn btn-floating btn-warning btn-lg"><i class="fab fa-facebook-f"></i></a>
+            <a type="button" class="btn btn-floating btn-warning btn-lg"><i class="fab fa-twitter"></i></a>
+            <a type="button" class="btn btn-floating btn-warning btn-lg"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+        <!-- Column 2 -->
+        <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+          <h5 class="text-uppercase mb-4 pb-1">Contact Us</h5>
+          <!-- Contact info -->
+          <ul class="fa-ul" style="margin-left: 1.65em;">
+            <li class="mb-3">
+              <span class="fa-li"><i class="fas fa-map-marker-alt"></i></span><span class="ms-2">123 Travel St, City, Country</span>
+            </li>
+            <li class="mb-3">
+              <span class="fa-li"><i class="fas fa-envelope"></i></span><span class="ms-2">info@wandrnow.com</span>
+            </li>
+            <li class="mb-3">
+              <span class="fa-li"><i class="fas fa-phone"></i></span><span class="ms-2">+1 (123) 456-7890</span>
+            </li>
+          </ul>
+        </div>
+        <!-- Column 3 -->
+        <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+          <h5 class="text-uppercase mb-4">Our Services</h5>
+          <!-- Quick links -->
+          <ul class="list-unstyled mb-0">
+            <li>
+              <a href="hotel_Booking.html" style="text-decoration: none; color: white;">Hotel Booking</a>
+            </li>
+            <li>
+              <a href="Flight_Booking.html" style="text-decoration: none;color: white;">Flight Booking</a>
+            </li>
+            <li>
+              <a href="Bus_Booking.html" style="text-decoration: none;color: white;">Bus Booking</a>
+            </li>
+            <li>
+              <a href="Guide_Booking.html" style="text-decoration: none; color: white;">Guides Booking</a>
+            </li>
+            <!-- Add more links as needed -->
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+      © 2024 Wandr_Now. All rights reserved.
+    </div>
+  </footer>
+</div>
+
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>

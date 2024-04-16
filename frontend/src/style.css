@@ -1,9 +1,9 @@
 
 .navbar-custom {
-    background-color: #87CEEB; /* Light Blue */
+    background-color:  #2E4053; /* Light Blue */
   }
   .nav-link {
-    color: #333; /* Dark Gray */
+    color: white; /* Dark Gray */
   }
   .nav-link:hover {
     color: #000; /* Black */
@@ -32,11 +32,17 @@
   .search-icon {
     margin-right: 10px;
   }
+
+
+
+  /*
   .signup-btn {
-    border: 1px solid #333; /* Added border to the Signup/Login button */
-    padding: 5px 15px; /* Added padding to the button */
-    border-radius: 5px; /* Added border radius to the button */
-  }  .services-container {
+    border: 1px solid #333;
+    padding: 5px 15px; 
+    border-radius: 5px; 
+  } 
+  */
+   .services-container {
   background-color: #f9f9f9; /* Light Gray background */
   padding: 50px 0;
 }
@@ -86,6 +92,9 @@ margin-right: 10px; /* Add spacing between icon and text */
 }
 
 @media (max-width: 350px) {
+  .modal{
+    margin-left: 50px;
+  }
 .service p {
   display: none; /* Hide text below 350px */
 }
@@ -118,21 +127,33 @@ margin-right: 10px; /* Add spacing between icon and text */
 .service p {
   color: #666; /* Gray for service descriptions */
   font-size: 16px;
-}
+}   
+
 .signup-btn{
-color: white;
-border: 2px solid black;
-background-color:#87CEEB ;
+  background-image: linear-gradient(to right, #FF512F 0%, #F09819  51%, #FF512F  100%);
+  margin: 5px;
+  padding: 10px 15px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;            
+  border-radius: 10px;
+  display: block;
 }
-.signup-btn:hover{
-background-color:rgb(99, 99, 208);
+
+.signup-btn:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
 }
 .exclusive-offers{
 margin-top: 30px;
 padding: 10px;
 text-align: center;
 font-weight: bold;
-font-size: 20px
+font-size: 20px;
+
 }
 
 .customer-testimonials{

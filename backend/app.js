@@ -2,9 +2,14 @@
 
 const express = require('express');
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const session = require('express-session');
+
 
 const BlogPost = require('./BlogPost');
-const GuideBooking = require('./GuideBooking');
+const Guide = require('./Guide');
+const User = require('./User');
+
 
 const cors = require('cors');
 const { body, validationResult } = require('express-validator');
@@ -170,7 +175,7 @@ app.get('/api/guides', async (req, res) => {
 
 
 app.post('/api/bookings', validateGuideBooking, async (req, res) => {
-  const guideBooking = new GuideBooking({
+  const guideBooking = new Guide({
     name: req.body.name,
     email: req.body.email,
     destination: req.body.destination,
@@ -194,6 +199,90 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ message: 'Something went wrong' });
 });
+
+
+///User registration and login routes
+
+
+// Middleware
+app.use(express.json());
+app.use(session({
+  secret: 'secret', // Change this to a random string
+  resave: false,
+  saveUninitialized: false
+}));
+
+
+
+// Registration endpoint
+app.post('/api/register', async (req, res) => {
+  const { username, email, password } = req.body;
+  try {
+    // Check if user already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: 'User already exists' });
+    }
+    // Create new user
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = new User({ username, email, password: hashedPassword });
+    await newUser.save();
+    res.status(201).json({ message: 'User registered successfully' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Login endpoint
+app.post('/api/login', async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    // Check if user exists
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ message: 'Invalid email or password' });
+    }
+    // Check password
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    if (!passwordMatch) {
+      return res.status(400).json({ message: 'Invalid email or password' });
+    }
+    // Store user id in session
+    req.session.userId = user._id;
+    res.json({ message: 'Login successful' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Logout endpoint
+app.post('/api/logout', async (req, res) => {
+  try {
+    // Destroy session
+    req.session.destroy();
+    res.json({ message: 'Logout successful' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Protected endpoint (requires authentication)
+app.get('/api/profile', async (req, res) => {
+  try {
+    // Check if user is authenticated
+    if (!req.session.userId) {
+      return res.status(401).json({ message: 'Unauthorized' });
+    }
+    // Fetch user profile
+    const user = await User.findById(req.session.userId);
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+
+
 
 
 

@@ -60,6 +60,62 @@
   color: #fff;
   text-decoration: none;
 }
+/* CSS Styles for Guide Cards */
+.guide-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 10px;
+  width: 100%;
+}
+
+.guide-image {
+  width: 100%; /* Ensure the image takes up the full width of its container */
+  object-fit: cover; /* Ensure the image covers the entire container */
+  border-radius: 5px;
+}
+
+.guide-details {
+  flex: 1; /* Allow the details section to grow or shrink as needed */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.guide-name {
+  font-weight: bold;
+}
+
+.guide-destination {
+  font-style: italic;
+}
+
+.guide-price {
+  color: #009688; /* Example color for price */
+}
+
+.guide-button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+.guide-button:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+
 
   </style>
 </head>
@@ -108,11 +164,14 @@
 
 <h1 style="text-align: center;">Guide Data</h1>
 
-<ul id="guide-list" ></ul>
+<div id="loading-indicator" style="display: none;">Loading...</div>
 
-<div class="GuideContainer" style="width: 100%; height: 100vh;"></div>
-
-
+<!-- HTML Structure for Guide Cards -->
+<div class="container">
+  <div class="row" id="guideCards">
+    <!-- Guide cards will be dynamically added here -->
+  </div>
+</div>
 
 <!-- Footer -->
 <div class="container-fluid" style="margin-left: 0;padding-right: 0; padding-left: 0; margin-bottom:0;">
@@ -179,34 +238,85 @@
 
 
 
-
-
-
-
 <script>
-  // JavaScript code to fetch and display guide data
-
-  // Make a GET request to fetch guide data
-  fetch('http://localhost:3000/api/guides')
-    .then(response => response.json())
-    .then(guides => {
-      // Handle the guide data
-      console.log('Guide data:', guides);
-      
-      // Display guide data on the frontend
-      const guideList = document.getElementById('guide-list');
-      guides.forEach(guide => {
-        const listItem = document.createElement('li');
-        listItem.textContent = `${guide.name} - ${guide.location}`;
-        guideList.appendChild(listItem);
-      });
-    })
-    .catch(error => {
-      console.error('Error fetching guide data:', error);
-    });
+  // Function to fetch guide data from the backend
+  function fetchGuides() {
+      const apiUrl = 'http://localhost:3000/api/guides'; // Update with your backend API URL
+      return fetch(apiUrl)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .catch(error => {
+          console.error('Error fetching guide data:', error);
+          throw error; // Rethrow the error to handle it in the calling code
+        });
+  }
+  
+  // Function to display guide data on the frontend
+  function displayGuides() {
+    const guideCardsContainer = document.getElementById('guideCards'); 
+    const loadingIndicator = document.getElementById('loading-indicator');
+  
+      loadingIndicator.style.display = 'block'; // Show loading indicator
+  
+      fetchGuides()
+        .then(guides => {
+          // Hide loading indicator
+          loadingIndicator.style.display = 'none';
+  
+          // Display guide data
+          guides.forEach(guide => {
+              // Create guide card container
+              const guideCard = document.createElement('div');
+              guideCard.classList.add('col-lg-4', 'col-md-6', 'mb-4'); // Bootstrap grid classes
+  
+              // Create guide card inner content
+              guideCard.innerHTML = `
+                <div class="card h-100 guide-card">
+                  <img src="${guide.imageUrl}" class="card-img-top" alt="${guide.name}" onload="fitImage(this)">
+                  <div class="card-body">
+                    <h5 class="card-title guide-name">${guide.name}</h5>
+                    <p class="card-text guide-location">Destination: ${guide.location}</p>
+                    <p class="card-text guide-availability">Availability: ${guide.availability ? 'Available' : 'Not Available'}</p>
+                    <p class="card-text guide-price">Price: $${guide.price}</p>
+                    <button class="btn btn-primary guide-button">Book Now</button>
+                  </div>
+                </div>
+              `;
+  
+              // Append guide card to container
+              guideCardsContainer.appendChild(guideCard);
+          });
+  
+        })
+        .catch(error => {
+          // Hide loading indicator
+          loadingIndicator.style.display = 'none';
+  
+          // Display error message to the user
+          const errorMessage = document.createElement('p');
+          errorMessage.textContent = 'Failed to fetch guide data. Please try again later.';
+          guideCardsContainer.appendChild(errorMessage);
+        });
+  }
+  
+  // Call displayGuides on window load
+  window.onload = function() {
+      displayGuides();
+  };
+  
+  function fitImage(img) {
+    const desiredHeight = 200; // Set the desired height here
+    const aspectRatio = img.naturalWidth / img.naturalHeight;
+    const desiredWidth = desiredHeight * aspectRatio;
+    img.style.width = `${desiredWidth}px`;
+    img.style.height = `${desiredHeight}px`;
+}
 </script>
 
-  
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>

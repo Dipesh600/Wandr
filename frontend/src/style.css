@@ -95,9 +95,7 @@ margin-right: 10px; /* Add spacing between icon and text */
   .modal{
     margin-left: 50px;
   }
-.service p {
-  display: none; /* Hide text below 350px */
-}
+
 .services-container{
   height: 50px;
 

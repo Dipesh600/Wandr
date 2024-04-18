@@ -67,6 +67,7 @@
 
     .button {
       display: flex;
+      justify-content: space-around;
       margin-bottom: 20px;
     }
 
@@ -98,7 +99,7 @@
     .check-box {
       margin-right: 5px;
     }
-
+    
     .smt-btn {
       width: 100%;
       padding: 10px;
@@ -113,6 +114,25 @@
 
     .smt-btn:hover {
       background-color: #2E4053; /* Dark Blue */
+    }
+
+    .signup-btn{
+      background-image: linear-gradient(to right, #FF512F 0%, #F09819  51%, #FF512F  100%);
+      margin: 5px;
+      padding: 10px 15px;
+      text-align: center;
+      text-transform: uppercase;
+      transition: 0.5s;
+      background-size: 200% auto;
+      color: white;            
+      border-radius: 10px;
+      display: block;
+    }
+
+    .signup-btn:hover {
+      background-position: right center; /* change the direction of the change here */
+      color: #fff;
+      text-decoration: none;
     }
   </style>
 </head>
@@ -168,29 +188,29 @@
 
     <div class="form">
       <div class="button">
-        <div id="btn"></div>
-        <button type='button' class="toggle" onclick="login()">Log In</button>
-        <button type='button' class="toggle" onclick="register()">Register</button>
+        <button type='button' class="toggle" onclick="login();" id="btn-login">Log In</button>
+        <button type='button' class="toggle" onclick="register();" id="btn-register">Register</button>
       </div>
       <div class="social-icons">
-        <a href="http://www.facebook.com"><img src="fb.png" alt="Facebook"></a>
+        <a href="http://www.facebook.com"><img  alt="Facebook"></a>
         <a href="http://www.instagram.com"><img src="gp.png" alt="Instagram"></a>
         <a href="http://www.twitter.com"><img src="tw.png" alt="Twitter"></a>
       </div>
       <form id="log-in" class="inp-grp">
-        <input type="text" class="input-field" placeholder="User Id" required>
-        <input type="text" class="input-field" placeholder="Enter Password" required>
+        <input type="text" id="login-userId" class="input-field" placeholder="User Id" required>
+        <input type="password" id="login-password" class="input-field" placeholder="Enter Password" required>
         <input type="checkbox" class="check-box"><span>Remember Password</span>
-        <button type="submit" class="smt-btn">Log In</button>
+        <button type="submit" class="smt-btn">Submit</button>
       </form>
-
+      
       <form id="register" class="inp-grp" style="display:none;">
-        <input type="text" class="input-field" placeholder="User Id" required>
-        <input type="email" class="input-field" placeholder="Email Id" required>
-        <input type="text" class="input-field" placeholder="Enter Password" required>
+        <input type="text" id="register-userId" class="input-field" placeholder="User Id" required>
+        <input type="email" id="register-email" class="input-field" placeholder="Email Id" required>
+        <input type="password" id="register-password" class="input-field" placeholder="Enter Password" required>
         <input type="checkbox" class="check-box"><span>I agree to the terms and conditions.</span>
-        <button type="submit" class="smt-btn">Register</button>
+        <button type="submit" class="smt-btn">Submit</button>
       </form>
+      
     </div>
   </div>
 </div>
@@ -260,27 +280,97 @@
     </div>
   </footer>
 </div>
-
 <script>
-  var x=document.getElementById('log-in');
-  var y=document.getElementById("register")
-  var z=document.getElementById("btn")
+  var loginForm = document.getElementById('log-in');
+  var registerForm = document.getElementById("register");
 
-  function register(){
-    x.style.left='-400px';
-    y.style.left='50px';
-    z.style.left='110px';
-    y.style.display = "block";
-    x.style.display = "none";
+  function register() {
+    loginForm.style.display = 'none';
+    registerForm.style.display = 'block';
   }
-  function login(){
-    x.style.left='50px';
-    y.style.left='450px';
-    z.style.left='0';
-    y.style.display = "none";
-    x.style.display = "block";
+
+  function login() {
+    registerForm.style.display = 'none';
+    loginForm.style.display = 'block';
   }
+  
+  // Frontend validation and submission handling
+  document.getElementById('log-in').addEventListener('submit', async function(event) {
+    event.preventDefault(); // Prevent default form submission
+    // Basic validation
+    var userId = document.getElementById('login-userId').value.trim();
+    var password = document.getElementById('login-password').value.trim();
+    if (userId === '' || password === '') {
+      alert('Please fill in all fields.');
+      return;
+    }
+    
+    try {
+      // Send a fetch request to your backend endpoint for user authentication
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email: userId, password: password })
+      });
+      
+      if (!response.ok) {
+        let errorMessage = 'Server Error: Please try again later.';
+        // Check if response body exists and is not empty
+        if (response.headers.get('Content-Length') !== '0') {
+          const data = await response.json();
+          errorMessage = data.message || errorMessage;
+        }
+        throw new Error(errorMessage);
+      }
+
+      // If authentication is successful, redirect the user or perform further actions
+      console.log('Login successful. Redirecting...');
+    } catch (error) {
+      alert(error.message);
+    }
+  });
+
+  document.getElementById('register').addEventListener('submit', async function(event) {
+    event.preventDefault(); // Prevent default form submission
+    // Basic validation
+    var userId = document.getElementById('register-userId').value.trim();
+    var email = document.getElementById('register-email').value.trim();
+    var password = document.getElementById('register-password').value.trim();
+    if (userId === '' || email === '' || password === '') {
+      alert('Please fill in all fields.');
+      return;
+    }
+    
+    try {
+      // Send a fetch request to your backend endpoint for user registration
+      const response = await fetch('/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username: userId, email: email, password: password })
+      });
+
+      if (!response.ok) {
+        let errorMessage = 'Server Error: Please try again later.';
+        // Check if response body exists and is not empty
+        if (response.headers.get('Content-Length') !== '0') {
+          const data = await response.json();
+          errorMessage = data.message || errorMessage;
+        }
+        throw new Error(errorMessage);
+      }
+
+      // If registration is successful, redirect the user or perform further actions
+      console.log('Registration successful. Redirecting...');
+    } catch (error) {
+      alert(error.message);
+    }
+  });
 </script>
+
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>

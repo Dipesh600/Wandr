@@ -186,7 +186,7 @@
       <p>Experience seamless travel booking experiences with Wandr. Motivate your wanderlust and explore the world with ease.</p>
     </section>
 
-    <div class="form">
+    <div class="form" id="form-container">
       <div class="button">
         <button type='button' class="toggle" onclick="login();" id="btn-login">Log In</button>
         <button type='button' class="toggle" onclick="register();" id="btn-register">Register</button>
@@ -215,6 +215,7 @@
   </div>
 </div>
 
+<!--Create profile section for the user here when the user is successfully logged in-->
 
 
 
@@ -283,6 +284,7 @@
 <script>
   var loginForm = document.getElementById('log-in');
   var registerForm = document.getElementById("register");
+  const form_container = document.getElementById("form-container");
 
   function register() {
     loginForm.style.display = 'none';
@@ -307,26 +309,21 @@
     
     try {
       // Send a fetch request to your backend endpoint for user authentication
-      const response = await fetch('/api/login', {
+      const response = await fetch('http://localhost:3000/api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ email: userId, password: password })
       });
-      
-      if (!response.ok) {
-        let errorMessage = 'Server Error: Please try again later.';
-        // Check if response body exists and is not empty
-        if (response.headers.get('Content-Length') !== '0') {
-          const data = await response.json();
-          errorMessage = data.message || errorMessage;
-        }
-        throw new Error(errorMessage);
-      }
 
-      // If authentication is successful, redirect the user or perform further actions
-      console.log('Login successful. Redirecting...');
+      if (!response.ok) {
+        throw new Error('Login failed. Please check your credentials and try again.');
+      }
+      // If authentication is successful, redirect the user to the home page
+      //window.location.href = 'index.html';
+      form_container.style.display='none';
+
     } catch (error) {
       alert(error.message);
     }
@@ -345,7 +342,7 @@
     
     try {
       // Send a fetch request to your backend endpoint for user registration
-      const response = await fetch('/api/register', {
+      const response = await fetch('http://localhost:3000/api/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -354,22 +351,19 @@
       });
 
       if (!response.ok) {
-        let errorMessage = 'Server Error: Please try again later.';
-        // Check if response body exists and is not empty
-        if (response.headers.get('Content-Length') !== '0') {
-          const data = await response.json();
-          errorMessage = data.message || errorMessage;
-        }
-        throw new Error(errorMessage);
+        throw new Error('Registration failed. Please try again later.');
       }
 
-      // If registration is successful, redirect the user or perform further actions
-      console.log('Registration successful. Redirecting...');
+      // If registration is successful, redirect the user to the home page
+    // window.location.href = 'index.html';
+    form_container.style.display="none";
+     
     } catch (error) {
       alert(error.message);
     }
   });
 </script>
+
 
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

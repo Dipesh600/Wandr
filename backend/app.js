@@ -4,11 +4,14 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
+const bodyParser = require('body-parser');
+
 
 
 const BlogPost = require('./BlogPost');
 const Guide = require('./Guide');
 const User = require('./User');
+const Flight = require('./flight');
 
 
 const cors = require('cors');
@@ -281,6 +284,39 @@ app.get('/api/profile', async (req, res) => {
   }
 });
 
+///flights 
+
+
+// Middleware
+app.use(bodyParser.json());
+
+
+// Route to handle flight search
+app.post('/flights/search', async (req, res) => {
+  try {
+    const { origin, destination, departureDate } = req.body;
+    // Perform flight search based on provided parameters
+    const flights = await Flight.find({ origin, destination, departureDate });
+    res.json(flights);
+  } catch (err) {
+    console.error('Error searching for flights:', err);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+// Server code
+
+app.get('/api/autocomplete', async (req, res) => {
+  try {
+    const { input } = req.query;
+    // Use a regular expression to find destinations or origins that start with the user input
+    const suggestions = await Flight.find({ $or: [{ origin: new RegExp('^' + input, 'i') }, { destination: new RegExp('^' + input, 'i') }] }).distinct('origin destination').exec();
+    res.json(suggestions);
+  } catch (err) {
+    console.error('Error fetching autocomplete suggestions:', err);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
 
 
 

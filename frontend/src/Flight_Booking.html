@@ -6,6 +6,8 @@
   <title>Wandr</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
 
   <style>
     .navbar-custom {
@@ -61,6 +63,75 @@
   text-decoration: none;
 }
 
+
+#flights_container {
+    max-width: 600px;
+    margin-bottom:15px ;
+    border: 2px solid #007bff;
+    border-radius: 10px;
+
+  }
+
+  h2 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+
+  #departureDate{
+    margin-bottom: 50px;
+  }
+  label {
+    font-weight: bold;
+  }
+
+
+  input[type="text"],
+  input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+
+  input[type="text"]:focus,
+  input[type="date"]:focus {
+    outline: none;
+    border-color: #007bff;
+  }
+
+  button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+
+  #flightResults ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  #flightResults li {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+  }
   </style>
 </head>
 <body>
@@ -105,10 +176,35 @@
   </div>
 </nav>
 
+<!-- Flight Booking Section -->
+<div class="container mt-5" id="flights_container">
+  <h2>Flight Booking</h2>
+  <div class="row">
+    <div class="col-md-6">
+      <form id="flightSearchForm">
+        <div class="form-group">
+          <label for="origin">Origin:</label>
+          <input type="text" class="form-control" id="origin" name="origin" placeholder="Enter origin" required>
+        </div>
+        <div class="form-group">
+          <label for="destination">Destination:</label>
+          <input type="text" class="form-control" id="destination" name="destination" placeholder="Enter destination" required>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-6">
+      <form id="flightSearchForm">
+        <div class="form-group">
+          <label for="departureDate">Departure Date:</label>
+          <input type="date" class="form-control" id="departureDate" name="departureDate" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Search Flights</button>
+      </form>
+    </div>
+  </div>
+</div>
 
-  
-<div class="GuideContainer" style="width: 100%; height: 100vh;"></div>
-
+<div id="flightResults" class="mt-4"></div>
 
 
 <!-- Footer -->
@@ -175,7 +271,69 @@
 </div>
 
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+
+
+<script>
+  // Flight Search Form Submission// Flight Search Form Submission
+document.getElementById('flightSearchForm').addEventListener('submit', async function(event) {
+  event.preventDefault(); // Prevent form submission
+  const origin = document.getElementById('origin').value;
+  const destination = document.getElementById('destination').value;
+  const departureDate = document.getElementById('departureDate').value;
+  const formData = { origin, destination, departureDate };
+
+  try {
+    const response = await fetch('/flights/search', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    });
+    const data = await response.json();
+    displayFlightResults(data);
+  } catch (error) {
+    console.error('Error fetching flight data:', error);
+  }
+});
+
+// Function to fetch autocomplete suggestions
+function fetchAutocompleteSuggestions(input) {
+  $.get('/api/autocomplete', { input: input }, function(data) {
+    // Update suggestions based on the response from the server
+    // For example, you can display the suggestions in a dropdown menu
+    console.log(data);
+  });
+}
+
+// Event listener for input changes in origin and destination fields
+$('#origin, #destination').on('input', function() {
+  const input = $(this).val();
+  // Fetch autocomplete suggestions for the current input
+  fetchAutocompleteSuggestions(input);
+});
+
+// Function to display flight search results
+function displayFlightResults(flights) {
+  const flightResultsDiv = document.getElementById('flightResults');
+  flightResultsDiv.innerHTML = ''; // Clear previous results
+  if (flights.length === 0) {
+    flightResultsDiv.innerHTML = '<p>No flights found for the selected criteria.</p>';
+  } else {
+    const flightList = document.createElement('ul');
+    flights.forEach(flight => {
+      const flightItem = document.createElement('li');
+      flightItem.textContent = `${flight.airline}: ${flight.origin} to ${flight.destination}, Departure Time: ${flight.departureTime}, Price: ${flight.price}`;
+      flightList.appendChild(flightItem);
+    });
+    flightResultsDiv.appendChild(flightList);
+  }
+}
+
+
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>

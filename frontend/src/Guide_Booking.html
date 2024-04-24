@@ -8,6 +8,10 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
   <style>
+    .body{
+      width: 100%;
+      height: 100%;
+    }
     .navbar-custom {
       background-color: #2E4053; /* Light Blue */
     }
@@ -59,7 +63,55 @@
   background-position: right center; /* change the direction of the change here */
   color: #fff;
   text-decoration: none;
+}/* Center the spinner */
+#loading-indicator {
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
 }
+
+/* Animation styles for the spinner */
+.spinner {
+   animation: rotator 1.4s linear infinite; /* Use the desired duration directly */
+}
+
+@keyframes rotator {
+   0% { transform: rotate(0deg); }
+   100% { transform: rotate(270deg); }
+}
+
+.path {
+   stroke-dasharray: 187; /* Adjust this value if needed */
+   stroke-dashoffset: 0;
+   transform-origin: center;
+   animation: dash 1.4s ease-in-out infinite, colors 5.6s ease-in-out infinite; /* Use the desired duration for the colors animation */
+}
+
+@keyframes colors {
+   0% { stroke: #4285F4; }
+   25% { stroke: #DE3E35; }
+   50% { stroke: #F7C223; }
+   75% { stroke: #1B9A59; }
+   100% { stroke: #4285F4; }
+}
+
+@keyframes dash {
+   0% { stroke-dashoffset: 187; /* Adjust this value if needed */ }
+   50% {
+      stroke-dashoffset: 187/4; /* Adjust this value if needed */
+      transform:rotate(135deg);
+   }
+   100% {
+      stroke-dashoffset: 187; /* Adjust this value if needed */
+      transform:rotate(450deg);
+   }
+}
+
+
+
+
+
 /* CSS Styles for Guide Cards */
 .guide-card {
   display: flex;
@@ -164,14 +216,24 @@
 
 <h1 style="text-align: center;">Guide Data</h1>
 
-<div id="loading-indicator" style="display: none;">Loading...</div>
+ 
+
 
 <!-- HTML Structure for Guide Cards -->
-<div class="container">
+<div class="container" style="height:400px; width: 100%;" id="card-container">
+<!-- Loading animation will be dynamically added here -->
+<div id="loading-indicator" style="display: none;">
+  <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+    <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+  </svg>
+</div>
+
   <div class="row" id="guideCards">
     <!-- Guide cards will be dynamically added here -->
   </div>
 </div>
+
+
 
 <!-- Footer -->
 <div class="container-fluid" style="margin-left: 0;padding-right: 0; padding-left: 0; margin-bottom:0;">
@@ -241,7 +303,7 @@
 <script>
   // Function to fetch guide data from the backend
   function fetchGuides() {
-      const apiUrl = 'http://localhost:3000/api/guides'; // Update with your backend API URL
+      const apiUrl = 'http://localhost:3000/api/guides'; 
       return fetch(apiUrl)
         .then(response => {
           if (!response.ok) {
@@ -259,6 +321,7 @@
   function displayGuides() {
     const guideCardsContainer = document.getElementById('guideCards'); 
     const loadingIndicator = document.getElementById('loading-indicator');
+    const cardContainer = document.getElementById('card-container');
   
       loadingIndicator.style.display = 'block'; // Show loading indicator
   
@@ -266,6 +329,8 @@
         .then(guides => {
           // Hide loading indicator
           loadingIndicator.style.display = 'none';
+          cardContainer.style.height='100%';
+
   
           // Display guide data
           guides.forEach(guide => {

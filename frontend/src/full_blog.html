@@ -274,8 +274,9 @@ fetch(`http://localhost:3000/api/blogposts/${postId}`)
   .then(blogPost => {
     // Populate the page with the fetched blog post data
     document.getElementById('blogTitle').textContent = blogPost.title;
-    document.getElementById('authorImage').src = blogPost.authorImage;
+    document.getElementById('authorImage').src = blogPost.imageUrl;
     document.getElementById('authorName').textContent = blogPost.author;
+
 
     // Populate slideshow content (if available)
     const slideshowContent = document.getElementById('slideshowContent');

@@ -100,7 +100,20 @@ app.use((err, req, res, next) => {
     res.status(500).json({ message: 'Something went wrong' });
   });
   
-
+// Endpoint to fetch a single blog post by ID
+app.get('/api/blogposts/:id', async (req, res) => {
+  try {
+    const postId = req.params.id;
+    const post = await BlogPost.findById(postId);
+    if (!post) {
+      return res.status(404).json({ error: 'Blog post not found' });
+    }
+    res.json(post);
+  } catch (error) {
+    console.error('Error fetching blog post:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 // Validation Middleware
 const validateBlogPost = [

@@ -7,7 +7,7 @@
   }
   .nav-link:hover {
     color: #000; /* Black */
-  }
+  }zz
   .navbar-brand {
     display: flex;
     flex-direction: column;
@@ -160,14 +160,18 @@ font-weight: bold;
 font-size: 20px;
 
 }
-
-.customer-testimonials{
-margin-top: 30px;
-padding: 10px;
-text-align: center;
-font-weight: bold;
-font-size: 20px
-
+.testimonial-card .card-up {
+  height: 120px;
+  overflow: hidden;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+}
+.testimonial-card .avatar {
+  width: 110px;
+  margin-top: -60px;
+  overflow: hidden;
+  border: 3px solid #fff;
+  border-radius: 50%;
 }
 /* Modal Content Styles */
 .modal-content {

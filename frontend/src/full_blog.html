@@ -3,60 +3,329 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Full Blog</title>
+  <title>Full Blog Post</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+  <style>
+    /* Custom Styles */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa; /* Light gray */
+    }
+
+    .navbar-custom {
+      background-color: #2E4053; /* Light Blue */
+    }
+
+    .navbar-brand {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .navbar-brand img {
+      margin-bottom: 5px;
+    }
+
+    .navbar-nav .nav-link {
+      font-weight: bold;
+    }
+
+    .search-icon {
+      margin-right: 10px;
+    }
+
+    .signup-btn{
+  background-image: linear-gradient(to right, #FF512F 0%, #F09819  51%, #FF512F  100%);
+  margin: 5px;
+  padding: 10px 15px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;            
+  border-radius: 10px;
+  display: block;
+}
+
+.signup-btn:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+}
+
+
+
+
+    .content-container {
+      margin-top: 20px;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      max-width: 1200px; /* Limit maximum width */
+      margin: 0 auto; /* Center content container */
+    }
+
+    .blog-title {
+      font-size: 32px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .author-info {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .author-info img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .activities-container {
+      margin-top: 30px;
+    }
+
+    .recent-blogs {
+      margin-top: 30px;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .blog-title {
+        font-size: 24px;
+      }
+
+      .author-info img {
+        width: 40px;
+        height: 40px;
+      }
+    }
+
+
+
+  </style>
 </head>
 <body>
 
-<div class="container">
-  <div class="row">
-    <div class="col-lg-8 offset-lg-2 mt-5">
-      <div id="blogPost" class="card">
-        <div class="card-body">
-          <h2 id="blogTitle" class="card-title"></h2>
-          <p id="blogContent" class="card-text"></p>
-          <p><strong id="blogAuthor">Author:</strong> <span id="authorName"></span></p>
-          <p><strong id="blogDate">Publication Date:</strong> <span id="publicationDate"></span></p>
-          <img id="blogImage" class="img-fluid" alt="Blog Image">
-        </div>
-      </div>
+<!-- Navigation bar -->
+<nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+  <a class="navbar-brand" href="#">
+    <img src="Wandrlogo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+    <span style="font-size: 12px;">Destiny leads you...</span>
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav mr-auto" id="bookings">
+      <li class="nav-item">
+        <a class="nav-link" href="corporate_booking.html">Corporate Booking</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="hotel_Booking.html">Hotel Booking</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="Flight_Booking.html">Flight Booking</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="Guide_Booking.html">Guide Booking</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="Wandr.html">Wander</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          <i class="fa fa-search search-icon"></i> <!-- Added search icon -->
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="signup-btn" href="login.html">Log-in/Sign-up</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Content Container -->
+<div class="container content-container">
+  <h1 class="blog-title" id="blogTitle">Blog Title</h1>
+  
+  <!-- Author Information -->
+  <div class="author-info">
+    <img src="#" alt="Author Image" id="authorImage">
+    <span id="authorName">Author Name</span>
+  </div>
+  
+  <!-- Slideshow -->
+  <div id="slideshow" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators" id="slideshowIndicators">
+      <!-- Slideshow indicators will be dynamically added here -->
+    </ol>
+    <div class="carousel-inner" id="slideshowContent">
+      <!-- Slideshow content will be dynamically added here -->
+    </div>
+    <a class="carousel-control-prev" href="#slideshow" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#slideshow" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+  
+  <!-- Activities Section -->
+  <div class="activities-container">
+    <h2>Activities</h2>
+    <div class="row" id="activitiesContent">
+      <!-- Activities content will be dynamically added here -->
     </div>
   </div>
 </div>
+
+<!-- Recent Blogs -->
+<div class="container recent-blogs">
+  <h2>Recent Blogs</h2>
+  <div class="row"id="recentBlogsContent">
+    <!-- Recent blogs content will be dynamically added here -->
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="text-white text-center text-lg-start" style="background-color: #23242a; padding: 5px; margin-top: 30px;">
+  <div class="container">
+    <div class="row mt-4">
+      <!-- Column 1 -->
+      <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+        <h5 class="text-uppercase mb-4">About Us</h5>
+        <p style="text-align: justify;">
+          We are a travel management company dedicated to providing seamless booking experiences for hotels, flights, buses, Dedicated Guides, and more.
+        </p>
+        <!-- Social media icons -->
+        <div class="mt-4" style="padding: 10px; margin-left: -40px;">
+          <a type="button" class="btn btn-floating btn-warning btn-lg"><i class="fab fa-facebook-f"></i></a>
+          <a type="button" class="btn btn-floating btn-warning btn-lg"><i class="fab fa-twitter"></i></a>
+          <a type="button" class="btn btn-floating btn-warning btn-lg"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <!-- Column 2 -->
+      <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+        <h5 class="text-uppercase mb-4 pb-1">Contact Us</h5>
+        <!-- Contact info -->
+        <ul class="fa-ul" style="margin-left: 1.65em;">
+          <li class="mb-3">
+            <span class="fa-li"><i class="fas fa-map-marker-alt"></i></span><span class="ms-2">123 Travel St, City, Country</span>
+          </li>
+          <li class="mb-3">
+            <span class="fa-li"><i class="fas fa-envelope"></i></span><span class="ms-2">info@wandrnow.com</span>
+          </li>
+          <li class="mb-3">
+            <span class="fa-li"><i class="fas fa-phone"></i></span><span class="ms-2">+1 (123) 456-7890</span>
+          </li>
+        </ul>
+      </div>
+      <!-- Column 3 -->
+      <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+        <h5 class="text-uppercase mb-4">Our Services</h5>
+        <!-- Quick links -->
+        <ul class="list-unstyled mb-0">
+          <li>
+            <a href="hotel_Booking.html" style="text-decoration: none; color: white;">Hotel Booking</a>
+          </li>
+          <li>
+            <a href="Flight_Booking.html" style="text-decoration: none;color: white;">Flight Booking</a>
+          </li>
+          <li>
+            <a href="Bus_Booking.html" style="text-decoration: none;color: white;">Bus Booking</a>
+          </li>
+          <li>
+            <a href="Guide_Booking.html" style="text-decoration: none; color: white;">Guides Booking</a>
+          </li>
+          <!-- Add more links as needed -->
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    © 2024 Wandr_Now. All rights reserved.
+  </div>
+</footer>
+
+
 <script>
-    // Function to extract the post ID from the URL
-    function getPostIdFromURL() {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get('id');
+  // Fetch the blog post data from the server based on the post ID in the URL
+const postId = window.location.search.split('=')[1];
+fetch(`http://localhost:3000/api/blogposts/${postId}`)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Failed to fetch blog post');
+    }
+    return response.json();
+  })
+  .then(blogPost => {
+    // Populate the page with the fetched blog post data
+    document.getElementById('blogTitle').textContent = blogPost.title;
+    document.getElementById('authorImage').src = blogPost.authorImage;
+    document.getElementById('authorName').textContent = blogPost.authorName;
+
+    // Populate slideshow content (if available)
+    const slideshowContent = document.getElementById('slideshowContent');
+    if (blogPost.slideshowImages && blogPost.slideshowImages.length > 0) {
+      slideshowContent.innerHTML = blogPost.slideshowImages.map((image, index) => `
+        <div class="carousel-item ${index === 0 ? 'active' : ''}">
+          <img src="${image}" class="d-block w-100" alt="Slideshow Image">
+        </div>
+      `).join('');
+
+      // Update slideshow indicators
+      const slideshowIndicators = document.getElementById('slideshowIndicators');
+      slideshowIndicators.innerHTML = blogPost.slideshowImages.map((_, index) => `
+        <li data-target="#slideshow" data-slide-to="${index}" ${index === 0 ? 'class="active"' : ''}></li>
+      `).join('');
     }
 
-    // Fetch blog post details based on the ID from the backend
-    const postId = getPostIdFromURL();
-    fetch(`http://localhost:3000/api/blogposts/${postId}`)
-        .then(response => response.json())
-        .then(data => {
-            const blogPostContainer = document.getElementById('blogPost');
-            data.forEach(post => {
-                const blogPost = document.createElement('div');
-                blogPost.classList.add('col-lg-8', 'mx-auto', 'mt-4');
-                blogPost.innerHTML = `
-                    <div class="blog-post">
-                        <h2>${post.title}</h2>
-                        <p>${post.content}</p>
-                        <p><strong>Author:</strong> ${post.author}</p>
-                        <p><strong>Publication Date:</strong> ${new Date(post.publicationDate).toDateString()}</p>
-                        <img src="${post.imageUrl}" alt="Blog Image">
-                    </div>
-                `;
-                blogPostContainer.appendChild(blogPost);
-            });
-        })
-        .catch(error => console.error('Error fetching blog post:', error));
-</script>
+    // Populate activities content (if available)
+    const activitiesContent = document.getElementById('activitiesContent');
+    if (blogPost.activities && blogPost.activities.length > 0) {
+      activitiesContent.innerHTML = blogPost.activities.map(activity => `
+        <div class="col-md-4">
+          <h3>${activity.title}</h3>
+          <p>${activity.description}</p>
+          <img src="${activity.imageUrl}" alt="Activity Image" class="img-fluid">
+        </div>
+      `).join('');
+    }
 
+    // Populate recent blogs content (if available)
+    const recentBlogsContent = document.getElementById('recentBlogsContent');
+    if (blogPost.recentBlogs && blogPost.recentBlogs.length > 0) {
+      recentBlogsContent.innerHTML = blogPost.recentBlogs.map(recentBlog => `
+        <div class="col-md-6">
+          <h3>${recentBlog.title}</h3>
+          <p>${recentBlog.excerpt}</p>
+        </div>
+      `).join('');
+    }
+  })
+  .catch(error => {
+    console.error('Error fetching blog post:', error);
+    // Handle the error, e.g., display an error message to the user
+  });
+
+</script>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+

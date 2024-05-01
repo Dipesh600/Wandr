@@ -120,7 +120,7 @@
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
-  <a class="navbar-brand" href="#">
+  <a class="navbar-brand" href="index.html">
     <img src="Wandrlogo.png" width="30" height="30" class="d-inline-block align-top" alt="">
     <span style="font-size: 12px;">Destiny leads you...</span>
   </a>
@@ -162,6 +162,12 @@
 <div class="container">
   <div class="row" id="blogPosts">
     <!-- Blog posts will be dynamically added here -->
+    <!-- Loading animation will be dynamically added here -->
+<div id="loading-indicator" style="display: none;">
+  <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+    <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+  </svg>
+</div>
   </div>
 </div>
 
@@ -230,29 +236,79 @@
 
 
 <script>
-  // Fetch blog posts from the backend
- // Fetch blog posts from the server
-fetch('http://localhost:3000/api/blogposts')
-  .then(response => response.json())
+ 
+ // Function to fetch guide data from the backend
+ function fetchBlogs() {
+      const apiUrl = 'http://localhost:3000/api/blogposts'; 
+      return fetch(apiUrl)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .catch(error => {
+          console.error('Error fetching guide data:', error);
+          throw error; // Rethrow the error to handle it in the calling code
+        });
+  }
+
+  
+  // Function to display guide data on the frontend
+  function displayBlogs() {
+    const loadingIndicator = document.getElementById('loading-indicator');
+  
+      loadingIndicator.style.display = 'block'; // Show loading indicator
+  
+      fetchBlogs()
+        
   .then(data => {
-    data.forEach(post => {
-      const blogCard = document.createElement('div');
-      blogCard.classList.add('col-lg-4', 'col-md-6', 'mb-4');
-      blogCard.innerHTML = `
-        <div class="blog-card">
-          <h2>${post.title}</h2>
-          <p>${post.content}</p>
-          <p><strong>Author:</strong> ${post.author}</p>
-          <p><strong>Publication Date:</strong> ${new Date(post.publicationDate).toDateString()}</p>
-          <a href="full_blog.html?id=${post._id}" class="stretched-link">
-            <img src="${post.imageUrl}" alt="Blog Image">
-          </a>
-        </div>
-      `;
-      document.getElementById('blogPosts').appendChild(blogCard);
-    });
-  })
-  .catch(error => console.error('Error fetching blog posts:', error));
+    loadingIndicator.style.display = 'none';
+
+  data.forEach(post => {
+    const blogCard = document.createElement('div');
+    blogCard.classList.add('col-lg-4', 'col-md-6', 'mb-4');
+    blogCard.innerHTML = `
+      <div class="blog-card">
+        <h2>${post.title}</h2>
+        <p>${post.metaDescription}</p>
+        <p><strong>Author:</strong> ${post.author}</p>
+        <p><strong>Publication Date:</strong> ${new Date(post.publicationDate).toDateString()}</p>
+        <a href="full_blog.html?id=${post._id}" class="stretched-link">
+          <img src="${post.featuredImage}" alt="Blog Image">
+        </a>
+      </div>
+    `;
+    document.getElementById('blogPosts').appendChild(blogCard);
+  });
+  
+        })
+        .catch(error => {
+          // Hide loading indicator
+          loadingIndicator.style.display = 'none';
+  
+          // Display error message to the user
+          const errorMessage = document.createElement('p');
+          errorMessage.textContent = 'Failed to fetch guide data. Please try again later.';
+          guideCardsContainer.appendChild(errorMessage);
+        });
+  }
+  
+  // Call displayGuides on window load
+  window.onload = function() {
+      displayBlogs();
+  };
+  
+  function fitImage(img) {
+    const desiredHeight = 200; // Set the desired height here
+    const aspectRatio = img.naturalWidth / img.naturalHeight;
+    const desiredWidth = desiredHeight * aspectRatio;
+    img.style.width = `${desiredWidth}px`;
+    img.style.height = `${desiredHeight}px`;
+}
+
+
+
   
 </script>
 
